@@ -28,6 +28,11 @@ class JobListing:
 
 def search_jobs(role: str, location: str, max_results: int = 5, job_boards: Optional[list[str]] = None) -> list[JobListing]:
     
+    #Make AU specific search only for now
+    query = (
+        f"{role} jobs {location} site:seek.com.au OR site:linkedin.com/jobs"
+    )
+    """
     if job_boards:
         # If caller specified boards, include them as hints 
         boards_hint = " OR ".join(f"site:{b}" for b in job_boards)
@@ -36,6 +41,7 @@ def search_jobs(role: str, location: str, max_results: int = 5, job_boards: Opti
         # Generic query that works globally - "job listing" signals to Tavily
         # to prioritise job board pages over blog posts or salary articles
         query = f'"{role}" job listing {location}'
+    """ 
     
     response = tavily_client.search(
         query=query,
